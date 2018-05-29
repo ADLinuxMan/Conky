@@ -1,0 +1,58 @@
+conky.config = {
+	alignment = 'tr',
+	use_xft = true,
+	font = 'Terminus:size=8',
+	xftalpha = 0.5,
+	update_interval = 1,
+	total_run_times = 0,
+	-- short_units = true, uncomment GiB -> G, MiB -> M, etc.
+
+	
+	maximum_width = 290,
+	draw_shades = false,
+	draw_outline = false,
+	draw_borders = true,
+	draw_graph_borders = false,
+--	default_color = '588EBB',
+	default_shade_color = 'black',
+	default_outline_color = 'grey',
+	--gap_x = 5,
+	--gap_y = 5,
+	no_buffers = true,
+	uppercase = false,
+	cpu_avg_samples = 2,
+	net_avg_samples = 2,
+	override_utf8_locale = true,
+	use_spacer = 'none',
+
+	own_window = true,
+	own_window_type = 'normal',
+	own_window_transparent = false,
+	own_window_argb_visual = true,
+	own_window_hints = 'undecorated,below,skip_taskbar,skip_pager',
+	own_window_argb_value = 85,
+	own_window_colour = '7F7B75',
+	
+	minimum_width = 0, minimum_height = 0,
+	double_buffer = true,
+
+	color0 = 'B5CDE1',
+	color1 = '000DCC',
+	color2 = '49DAFF',
+};
+
+conky.text = [[
+###########################################################################
+#                                 System                                  #
+###########################################################################
+${font Open Sans:size=15}${color1}${user_names}$font$color2${font Open Sans:size=10}$alignr${voffset -15}$font${time %d %b %Y %l:%M %P}$font 
+${voffset 1}$alignr $battery_time, $battery_short
+${voffset 1}$alignr$mem of $memmax
+${voffset 5}${alignc}${color0}|><><><><><| ${color1}SYSTEM${color0} |><><><><><|
+${voffset 6}${color1}Core 0:   $color2${cpu cpu0}%${alignc}       ${execi 4 sensors | grep 'Core 0' | cut -c16-24}${color0}${alignr}${cpubar cpu0 10,60}
+${voffset 1}${color1}Core 1:   $color2${cpu cpu1}%${alignc}       ${execi 4 sensors | grep 'Core 1' | cut -c16-24}${color0}${alignr}${cpubar cpu1 10,60}
+${voffset 3}${color1}WiFi $color2$font${wireless_bitrate wlan0}       $color1$alignc${wireless_essid wlan0}$color2 $alignr ${addr wlan0}
+$color${voffset 1}↑${upspeedgraph wlan0 10,100 $color1 000000 -t}${alignr}↓${downspeedgraph wlan0 10,100 000000 $color1  -t}
+${voffset 3}${color1}ROOT$alignc$color2       ${fs_used /} / ${fs_size /}$alignr$color0${fs_bar 10,60 /}
+${voffset 1}${color1}HOME$alignc$color2       ${fs_used /home} / ${fs_size /home}$alignr$color0${fs_bar 10,60 /home}
+]];
